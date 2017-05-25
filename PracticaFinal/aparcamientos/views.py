@@ -68,7 +68,7 @@ def regist(request):
             if user is not None:
                 newUser = User(user = user, fontSize = 24, colour = colorObject, pageName = "Página de " + username)
                 newUser.save()
-                changeColor(request, username, "default")  #Para crear css por defecto para el usuario
+                changeUserValues(username, colorObject, 24)  #Para crear css por defecto para el usuario
     return HttpResponseRedirect("/")
 
 def serveAbout(request):
@@ -177,19 +177,20 @@ def homeXML(request, onlyAccess):
     else:
         selectedParkings = Parking.objects.exclude(access = 0)
     topComment = selectedParkings.exclude(Ncomments = 0).order_by('-Ncomments')[:5]
-    template = get_template("xml/parking.xml")
+    template = get_template("xml/parkings.xml")
     return HttpResponse(template.render(Context({ 'top5' : True,
                                     'parkings' : topComment})), content_type='text/xml')
 
 def userXML(request, user, onlyAccess):
     lenguage = getLenguage(request)
     try:
-        selectedUser = modelsAuth.User.objects.get(username = user)
+        selectedUserAuth = modelsAuth.User.objects.get(username = user)
+        selectedUser = User.objects.get( user = selectedUserAuth)
     except ObjectDoesNotExist:
         template = get_template("page/" + lenguage + "/error.html")
         return HttpResponse(template.render(Context({ 'user' : request.user,
           'NotFound' : "This user is not register"})))
-    parkings = User.objects.get(user = selectedUser).parkings.all()
+    parkings = Parking.objects.filter( aggregatedparking__user = selectedUser )
     if onlyAccess == "/_accesible":
         parkings = parkings.exclude( access = 0)
     template = get_template("xml/parkings.xml")
