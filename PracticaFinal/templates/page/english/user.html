@@ -1,0 +1,64 @@
+{% extends 'page/english/serveParkInfo.html' %}
+
+{% block parkInfo %}
+  <h6 class="heading"><a href={{park.parking.url}}> {{park.parking.name}} </a></h6>
+  <p> {{ park.parking.descrip }}</p>
+  <p> Aggregated at: {{ park.aggregationDate }}</p>
+  <footer><a href="/aparcamientos/id={{ park.parking.id }}">View Details &raquo;</a></footer>
+{% endblock parkInfo%}
+
+
+  <div id="templatemo_content">
+    <article clas="df_box">
+      {% if access %}
+      <h2><a href="/{{ ref }}/xml/_accesible">Get the page XML</a></h2>
+      {% else %}
+      <h2><a href="/{{ ref }}/xml"> Get the page XML</a></h2>
+      {% endif %}
+    </article>
+
+    {% if setNamePage %} <!-- SOLO ACCESIBLE DESDE PAGINA DE USUARIO, PARA DAR NOMBRE A LA PAGINA  -->
+
+    <article class="df_box">
+      <h6>If you want to change your page name, please introduce the new one </h6>
+      <form method="Post" action="/setUserPage/{{user.username}}">
+        <p><input type="text" name="newName"></p>
+        <p><input class="boton" type="submit" value="Submit"></p>
+      </form>
+    </article>
+
+    <article class="df_box">
+      <h2>To add parkings to your page</h2>
+      <select id="selectbox" name="" onchange="javascript:location.href = this.value;">
+        <option value="#" selected> Add parkings:</option>
+        {% for parking in everyParks %}
+          <option value="/addPark/{{user}}/{{parking.id}}"> {{parking.name}} </option>
+        {% endfor %}
+      </select>
+    </article>
+
+    <article class="df_box">
+      <h2>Choose a new color (0 = default)</h2>
+      <select id="selectbox" name="" onchange="javascript:location.href = this.value;">
+        <option value="/changeColor/{{user}}/sinColor" selected> Choose </option>
+        {% for color in everyColors %}
+          <option value="/changeColor/{{user}}/{{color}"> {{color}} </option>
+        {% endfor %}
+      </select>
+    </article>
+
+    <h2>Change the font size:</h2>
+    <form method="Post" action="/changeFontSize/{{user}}">
+      <p><input type="text" name="newSize"></p>
+      <p><input class="boton" type="submit" value="Submit"></p>
+    </form>
+
+    {% endif %}
+
+  </div>
+
+  {% if nextPage %}
+    <div id="templatemo_content">
+      <a class="button" href="{{nextPage}}"> Next Page</a>
+    </div>
+  {% endif %}

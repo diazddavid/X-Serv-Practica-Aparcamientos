@@ -1,0 +1,21 @@
+{% extends 'page/spanish/base.html' %}
+
+{% block content %}
+
+  <div id="templatemo_main">
+    <div id="templatemo_content">
+        <div class="content_box">
+            <h1 class="heading">Nuevo usuario:</h1>
+            {% if NameError%}
+            <h1>Nombre usado, por favor elija otro</h1>
+            {% endif %}
+              <form method="post" action="/registro">
+                <p><input type="text" name="username" autofocus></p>
+                <p><input type="password" name="password"></p>
+                <p><input class="boton" type="submit" value="Login"></p>
+              </form>
+        </div>
+    </div>
+  </div>
+
+{% endblock content %}

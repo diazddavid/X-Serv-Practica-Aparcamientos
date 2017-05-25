@@ -1,0 +1,36 @@
+<Contenidos>
+  <infoDataset>
+    {% if user%}
+    <nombre>Aparcamientos publicos seleccionados por: {{ user }} </nombre>
+    {% else %}
+    <nombre>Top 5 aparcamientos con mas comentarios</nombre>
+    {% endif %}
+    <uri>
+      http:// {{ host }}
+    </uri>
+  </infoDataset>
+  {% for park in parkings %}
+    <contenido>
+      <atributos>
+        <atributo nombre='NOMBRE'> {{park.name}} </atributo>
+        <atributo nombre='DESCRIPCION'> {{park.descrip}} </atributo>
+        <atributo nombre='ACCESIBILIDAD'> {{park.access}} </atributo>
+        <atributo nombre='CONTENT-URL'>
+          {{park.url}}
+        </atributo>
+        <atributo nombre='LOCALIZACION'>
+          <atributo nombre='NOMBRE-VIA'>  {{park.address}} </atributo>
+          <atributo nombre='LOCALIDAD'> {{park.city}} </atributo>
+          <atributo nombre='BARRIO'> {{park.neighborhood}} </atributo>
+          <atributo nombre='DISTRITO'> {{park.district}} </atributo>
+          <atributo nombre='LATITUD'> {{park.latitude}} </atributo>
+          <atributo nombre='LONGITUD'> {{park.longitude}} </atributo>
+        </atributo>
+        <atributo nombre='DATOSCONTACTOS'>
+          <atributo nombre='TELEFONO'> {{park.tlf}} </atributo>
+          <atributo nombre='EMAIL'> {{park.email}} </atributo>
+        </atributo>
+      </atributos>
+    </contenido>
+  {% endfor %}
+</Contenidos>

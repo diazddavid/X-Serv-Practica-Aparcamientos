@@ -1,0 +1,36 @@
+{% extends 'page/spanish/base.html' %}
+
+{% block content %}
+
+      <div id="templatemo_main">
+        <div id="templatemo_content">
+            <div class="content_box">
+              <h1><a href="/{{ ref }}">{{ Title }}</a></h1>
+                {% for park in parkings %}
+                  <article class="df_box">
+                    {% block parkInfo %}
+                      <h6 class="heading"><a href="/aparcamientos/id={{ park.id }}"> {{park.name}} </a></h6>
+                    {% endblock %}
+                  </article>
+                  <p><p>
+                {% endfor %}
+            </div>
+        </div>
+      </div>
+
+{% endblock content %}
+
+{% block sidebar %}
+{% endblock %}
+
+{% block district %}
+{% if districts %}
+<select id="selectbox" name="" onchange="javascript:location.href = this.value;">
+  <option value="#" selected> Seleccione un distrito</option>
+  <option value="/aparcamientos"> Todos</option>
+  {% for district in districts %}
+  <option value="/distrito/{{district}}" >{{district}}</option>
+  {% endfor %}
+</select>
+{% endif %}
+{% endblock district%}

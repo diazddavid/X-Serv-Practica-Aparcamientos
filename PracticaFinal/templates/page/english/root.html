@@ -1,0 +1,28 @@
+{% extends 'page/english/serveParkInfo.html' %}
+
+{% block parkInfo %}
+  <h6 class="heading"><a href={{park.url}}> {{park.name}} </a></h6>
+  <p> {{ park.descrip }}</p>
+  <footer><a href="/aparcamientos/id={{ park.id }}">View Details &raquo;</a></footer>
+{% endblock parkInfo%}
+
+
+{% block sidebar %}
+  <div id="templatemo_sidebar">
+    <div class="sidebar_box">
+      <h2>User pages:</h2>
+      {% for user in userList %}
+        <div class="df_box">
+          <h6><a href="{{ user.user.username }}"> {{ user.pageName }} </a></h6>
+          <p> Owner: {{ user.user.username }}</p>
+        </div>
+        <p><p>
+      {% endfor %}
+      {% if access %}
+      <h6><a href="/xml/top5/_accesible"> Get a XML file with the top 5 most comments access parking</a></h6>
+      {% else %}
+      <h6><a href="/xml/top5"> Get a XML file with the top 5 most comments parking</a></h6>
+      {% endif %}
+    </div>
+  </div>
+{% endblock sidebar %}

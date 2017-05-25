@@ -1,0 +1,69 @@
+{% extends 'page/english/base.html' %}
+
+{% block content %}
+  <div id="templatemo_main">
+    <div id="templatemo_content">
+        <div class="content_box">
+            <h1 class="heading"><a href={{parking.url}}> {{parking.name}} </a></h6>
+          <article class="df_box">
+            <h2>Description:</h2>
+            <p>{{ parking.descrip }}</p>
+          </article>
+          <article class="df_box">
+            <h2>Contact info:</h2>
+            <p> {{ parking.email }} </p>
+            <p> {{ parking.tlf }}  </p>
+          </article>
+          <article class="df_box">
+            <h2>Accessibility: {{ parking.access }}</h2>
+          </article>
+            {% for comment in commentList %}
+              <article class="df_box">
+                <h3>Comment:</h3>
+                <p> {{ comment.comment }} </p>
+              </article>
+              <article class="df_box">
+              </article>
+            {% endfor %}
+            {% if user.is_authenticated%}
+            <p>Send a new comment:</p>
+            <form action='/aparcamientos/id={{parking.id}}' method='post' >
+              <br> <input type='text' name = 'comment' autofocus></br>
+              <!-- Autofocus HTML5 visto en https://www.w3schools.com/tags/att_input_autofocus.asp -->
+              <input type='submit' value='Submit'>
+            </form>
+            {% else%}
+            <h2> You have to be logged to send a comment</h2>
+            {% endif %}
+        </div>
+    </div>
+  </div>
+
+{% endblock content %}
+
+{% block sidebar %}
+  <div id="templatemo_sidebar">
+    <div class="sidebar_box">
+      <h2>Points = {{ parking.points }}
+          <input type='submit' class="OnePointB" form='OnePoint' value='+1'>
+          <!-- HTML5, Visto en https://stackoverflow.com/questions/7020659/submit-form-using-a-button-outside-the-form-tag -->
+        </h2>
+          <form id="OnePoint" hidden action="/aparcamientos/id={{parking.id}}/+1" method="post">
+            <!-- hidden HTML5 visto en http://www.nobbot.com/personas/las-novedades-de-html5-ii/ -->
+            <input type="text" name="OnePoint" value="1" />
+          </form></h2>
+          <div class="df_box">
+            <h2>Location: </h2>
+              <p> Latitude: {{ parking.latitude }}</p>
+              <p> Longitude: {{ parking.longitude }}</p>
+          </div>
+          <p>
+          <div class="df_box">
+            <p> Adress: {{ parking.address }}</p>
+            <p> City: {{ parking.city }}</p>
+            <p> Neighborhood: {{ parking.neighborhood }}</p>
+            <p> District: <a href="/distrito/{{ parking.district }}"> {{ parking.district }}</a></p>
+          </div>
+    </div>
+  </div>
+{% endblock sidebar%}

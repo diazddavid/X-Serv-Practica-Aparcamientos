@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN">
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>Aparcame el Coche</title>
+		<meta name="keywords" content="" />
+		<meta name="description" content="" />
+	<link href="/css/{{ cssName }}templatemo_style.css" rel="stylesheet" type="text/css" />
+	<link rel="shortcut icon" type="image/png" href="images/favicon.ico"/>
+	<script type="text/javascript" src="js/functions.js">
+	</script>
+	</head>
+
+	<body>
+		<div id="templatemo_header">
+			<div id="site_title">
+				<h1><a href="/"></a></h1>
+			</div>
+			<div id="site_log">
+				{% if user.is_authenticated %}
+				<a class="button" href="/logout"> Logout</a>
+				{% else %}
+				<form method="post" action="/myLogin">
+					<h2>LOGIN</h2>
+					<p><input type="text" name="username"></p>
+					<p><input type="password" name="password"></p>
+					<p><input class="boton" type="submit" value="Login"></p>
+				</form>
+				{% endif %}
+			</div>
+		</div>
+
+		<div id="templatemo_menu">
+
+			<ul>
+				<li><a href="/" >Home</a></li>
+				<li><a href="/aparcamientos">Todos</a></li>
+				<li><a href="/updateParking">Actualizar información</a></li>
+				{% if user.is_authenticated %}
+				<li><a href="/{{ user.username }}">Mi página</a></li>
+				{% else %}
+				<li><a href="/registro">Registrarme</a></li>
+				{% endif %}
+				<li><a href="/about">Ayuda</a></li>
+				{% block district%}
+				{% endblock %}
+			</ul>
+
+		</div> <!-- end of templatemo_menu -->
+
+		<div id="templatemo_body_wrapper">
+			<div id="templatemo_wrapper">
+
+				{% block content %}
+		 		{% endblock %}
+
+				{% block about %}
+				<div id="templatemo_sidebar">
+	        <div class="sidebar_box">
+	          {% if access %}
+	          <a class="button" href="/{{ ref }}"> Todos</a>
+	          {% else %}
+	          <a class="button" href="{{ ref }}/_accesible"> Solo Accesibles</a>
+	          {% endif %}
+	        </div>
+	      </div>
+				{% endblock %}
+
+				{% block sidebar %}
+				{% endblock %}
+
+				<div class="cleaner"></div>
+			</div>
+		</div>
+
+		<div id="templatemo_footer">
+
+			Esta aplicación utiliza datos del portal de datos abiertos de la ciudad de Madrid
+			Copyright © 2048 <a href="www.templatemo.com">Estilo basado en Big City"</a>
+		  Validate <a href="http://validator.w3.org/check?uri=referer">XHTML</a> &amp;
+		  <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a>
+
+		</div> <!-- end of templatemo_footer -->
+
+		<!-- templatemo 258 big city -->
+		<!--
+		Big City Template
+		http://www.templatemo.com/preview/templatemo_258_big_city
+		-->
+	</body>
+</html>

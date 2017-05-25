@@ -1,0 +1,26 @@
+{% extends 'page/spanish/base.html' %}
+
+{% block about %}
+
+<h1 class="about"> About this page </a></h1>
+
+<h3 class="about">Autor = David Diaz Rivas IAA + ITT URJC </h3>
+<p> Aplicación hecha para la asignatura Servicios y Aplicaciones Telemáticas, en ella se obtienen datos sobre los aparcamientos
+    de la ciudad de Madrid, proporcionados por su ayuntamiento a tráves de la página web mencionada en el pie de página.</p>
+<p></p>
+<p>En ella se procesan los datos en XML, y mediante el uso de la plataforma Django, se sirve información sobre ellos.</p>
+<p>Dentro de la aplicacion, se distinguen varias secciones:</p>
+<p></p>
+<h3 class="about">Home</h3>
+<p>La página principal, muestra los parkings con más comentarios, y las páginas de usuario disponibles</p>
+<p></p>
+<h3 class="about">Páginas de usuario</h3>
+<p>Muestran los parking seleccionados por el propietario de la página, además si eres el propietario te permite modificar ciertos aspectos</p>
+<p></p>
+<h3 class="about">Paginas de parkings</h3>
+<p>Cada parking dispone de su página, en ella se expone información sobre el, además se pueden hacer comentarios sobre el, y valorarlo positivamente</p>
+<h3 class="about">Todos los parkings</h3>
+<p>Se muestra un listado con las páginas de los parkings, tambien se puede acceder por distritos</p>
+<p>pd: El banner con el titulo de la página no cambia con respecto al idioma por ser el nombre de la misma</p>
+
+{% endblock about %}
